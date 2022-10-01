@@ -1,0 +1,291 @@
+#define WHEELDIAMETER 5.6
+#define TRACKWIDTH 12.0
+#define MAXLINES 8
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+#define M_PI PI
+#define M_E 2.718281828459045
+#define M_GOLDEN_RATIO 1.61803398875
+#define M_SQRT2 1.41421356237
+#define M_SQRT1_2 0.707106781187
+#define M_INFINITY 0x7f800000
+#include "NEPODefs.h" // contains NEPO declarations for the NXC NXT API resources
+
+
+void ____loucazul();
+void ____loucabranca();
+void ____loucaAmarelo();
+
+bool ___white_r;
+bool ___blue_r;
+bool ___yellow_r;
+bool ___reset;
+task main() {
+    ___white_r = false;
+    ___blue_r = false;
+    ___yellow_r = false;
+    ___reset = true;
+    SetSensor(S3, SENSOR_COLORFULL);
+    ___reset = true;
+    while ( true ) {
+        if ( ___reset == true ) {
+            ClearScreen();
+            TextOut(0, (MAXLINES - 1) * MAXLINES, "Ol\u00E1! Escolha");
+            TextOut(0, (MAXLINES - 2) * MAXLINES, "Os quartos");
+            TextOut(0, (MAXLINES - 3) * MAXLINES, "Desejados!");
+            TextOut(0, (MAXLINES - 4) * MAXLINES, "Clique enter ");
+            TextOut(0, (MAXLINES - 5) * MAXLINES, "para continuar!");
+            while (true) {
+                if ( ButtonPressed(BTNCENTER, false) == true ) {
+                    break;
+                }
+                Wait(15);
+            }
+            ___reset = false;
+            ClearScreen();
+            TextOut(0, (MAXLINES - 1) * MAXLINES, "Quarto 1?");
+            TextOut(0, (MAXLINES - 2) * MAXLINES, "\u2190N\u00E3o Sim \u2192");
+            while (true) {
+                if ( ( ButtonPressed(BTNLEFT, false) == true ) || ( ButtonPressed(BTNRIGHT, false) == true ) ) {
+                    break;
+                }
+                Wait(15);
+            }
+            if ( ButtonPressed(BTNLEFT, false) == true ) {
+                ___white_r = false;
+                ClearScreen();
+                TextOut(0, (MAXLINES - 3) * MAXLINES, "''N\u00E3o\"");
+                Wait(1000);
+                ClearScreen();
+            }
+            if ( ButtonPressed(BTNRIGHT, false) == true ) {
+                ___white_r = true;
+                ClearScreen();
+                TextOut(0, (MAXLINES - 4) * MAXLINES, "''Sim''");
+                Wait(1000);
+                ClearScreen();
+                while ( ! (SensorColor(S3, "COLOUR") == INPUT_WHITECOLOR) ) {
+                    RotateMotorEx(OUT_BC, MIN(MAX(50, -100), 100), (20 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+                    Wait(1);
+                }
+                Wait(3000);
+                ClearScreen();
+                TextOut(0, (MAXLINES - 1) * MAXLINES, "Comida/remedio");
+                TextOut(0, (MAXLINES - 2) * MAXLINES, "Entregue!");
+                Wait(1000);
+                ____loucabranca();
+            }
+        } else {
+            if ( ___white_r == false ) {
+                ClearScreen();
+                TextOut(0, (MAXLINES - 1) * MAXLINES, "Quarto 2?");
+                TextOut(0, (MAXLINES - 2) * MAXLINES, "\u2190N\u00E3o Sim \u2192");
+                while (true) {
+                    if ( ( ButtonPressed(BTNLEFT, false) == true ) || ( ButtonPressed(BTNRIGHT, false) == true ) ) {
+                        break;
+                    }
+                    Wait(15);
+                }
+                if ( ButtonPressed(BTNLEFT, false) == true ) {
+                    ___blue_r = false;
+                    ClearScreen();
+                    TextOut(0, (MAXLINES - 3) * MAXLINES, "''N\u00E3o\"");
+                    Wait(1000);
+                    ClearScreen();
+                }
+                if ( ButtonPressed(BTNRIGHT, false) == true ) {
+                    ___blue_r = true;
+                    ClearScreen();
+                    TextOut(0, (MAXLINES - 4) * MAXLINES, "''Sim''");
+                    Wait(1000);
+                    ClearScreen();
+                    while ( ! (SensorColor(S3, "COLOUR") == INPUT_WHITECOLOR) ) {
+                        RotateMotorEx(OUT_BC, MIN(MAX(50, -100), 100), (20 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+                        Wait(1);
+                    }
+                    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (45 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+                    Wait(1);
+                    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (90 * TRACKWIDTH / WHEELDIAMETER), -100, true, true);
+                    Wait(1);
+                    while ( ! (SensorColor(S3, "COLOUR") == INPUT_BLUECOLOR) ) {
+                        RotateMotorEx(OUT_BC, MIN(MAX(50, -100), 100), (20 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+                        Wait(1);
+                    }
+                    Off(OUT_BC);
+                    Wait(3000);
+                    ClearScreen();
+                    TextOut(0, (MAXLINES - 1) * MAXLINES, "Comida/remedio");
+                    TextOut(0, (MAXLINES - 2) * MAXLINES, "Entregue!");
+                    Wait(1000);
+                    ____loucazul();
+                }
+                if ( ___blue_r == false ) {
+                    ClearScreen();
+                    TextOut(0, (MAXLINES - 1) * MAXLINES, "Quarto 3?");
+                    TextOut(0, (MAXLINES - 2) * MAXLINES, "\u2190N\u00E3o Sim \u2192");
+                    while (true) {
+                        if ( ( ButtonPressed(BTNLEFT, false) == true ) || ( ButtonPressed(BTNRIGHT, false) == true ) ) {
+                            break;
+                        }
+                        Wait(15);
+                    }
+                    if ( ButtonPressed(BTNLEFT, false) == true ) {
+                        ___yellow_r = false;
+                        ClearScreen();
+                        TextOut(0, (MAXLINES - 3) * MAXLINES, "''N\u00E3o\"");
+                        Wait(1000);
+                        ClearScreen();
+                    }
+                    if ( ButtonPressed(BTNRIGHT, false) == true ) {
+                        ___yellow_r = true;
+                        ClearScreen();
+                        TextOut(0, (MAXLINES - 4) * MAXLINES, "''Sim''");
+                        Wait(1000);
+                        ClearScreen();
+                        while ( ! (SensorColor(S3, "COLOUR") == INPUT_WHITECOLOR) ) {
+                            RotateMotorEx(OUT_BC, MIN(MAX(50, -100), 100), (20 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+                            Wait(1);
+                        }
+                        RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (35 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+                        Wait(1);
+                        RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (90 * TRACKWIDTH / WHEELDIAMETER), -100, true, true);
+                        Wait(1);
+                        while ( ! (SensorColor(S3, "COLOUR") == INPUT_YELLOWCOLOR) ) {
+                            RotateMotorEx(OUT_BC, MIN(MAX(50, -100), 100), (20 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+                            Wait(1);
+                        }
+                        Off(OUT_BC);
+                        ClearScreen();
+                        TextOut(0, (MAXLINES - 1) * MAXLINES, "Comida/remedio");
+                        TextOut(0, (MAXLINES - 2) * MAXLINES, "Entregue!");
+                        Wait(3000);
+                        ____loucaAmarelo();
+                    }
+                    if ( ___yellow_r == false ) {
+                        ClearScreen();
+                        TextOut(0, (MAXLINES - 1) * MAXLINES, "Voce nao");
+                        TextOut(0, (MAXLINES - 2) * MAXLINES, "escolheu nenhum");
+                        TextOut(0, (MAXLINES - 3) * MAXLINES, "quarto");
+                        Wait(2000);
+                        ClearScreen();
+                        TextOut(0, (MAXLINES - 1) * MAXLINES, "Reiniciando...");
+                        ___reset = true;
+                        Wait(1000);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void ____loucazul() {
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Indo para");
+    TextOut(0, (MAXLINES - 2) * MAXLINES, "a lou\u00E7a");
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_BLACKCOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(55, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Entregando louca...");
+    Off(OUT_BC);
+    Wait(3000);
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Entregue!");
+    TextOut(0, (MAXLINES - 2) * MAXLINES, "Retornando");
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (180 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_BLUECOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(55, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (70 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+    Wait(1);
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (90 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_GREENCOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(60, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (10 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+    Wait(1);
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (180 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Reabastecendo...");
+    Wait(3000);
+    ___reset = true;
+}
+
+void ____loucabranca() {
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Indo para");
+    TextOut(0, (MAXLINES - 2) * MAXLINES, "a lou\u00E7a");
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (40 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+    Wait(1);
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (90 * TRACKWIDTH / WHEELDIAMETER), -100, true, true);
+    Wait(1);
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_BLACKCOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(55, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Entregando louca...");
+    Off(OUT_BC);
+    Wait(3000);
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Entregue!");
+    TextOut(0, (MAXLINES - 2) * MAXLINES, "Retornando");
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (180 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_BLUECOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(55, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (70 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+    Wait(1);
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (90 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_GREENCOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(60, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (10 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+    Wait(1);
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (180 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Reabastecendo...");
+    Wait(3000);
+    ___reset = true;
+}
+
+void ____loucaAmarelo() {
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Indo para");
+    TextOut(0, (MAXLINES - 2) * MAXLINES, "a lou\u00E7a");
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (180 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_BLACKCOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(55, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Entregando louca...");
+    Off(OUT_BC);
+    Wait(3000);
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Entregue!");
+    TextOut(0, (MAXLINES - 2) * MAXLINES, "Retornando");
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_BLUECOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(55, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (70 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+    Wait(1);
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (90 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    while ( ! (SensorColor(S3, "COLOUR") == INPUT_GREENCOLOR) ) {
+        OnFwdRegEx(OUT_BC, MIN(MAX(60, -100), 100), OUT_REGMODE_SYNC, RESET_NONE);
+    }
+    RotateMotorEx(OUT_BC, MIN(MAX(30, -100), 100), (10 * 360 / (PI * WHEELDIAMETER)), 0, true, true);
+    Wait(1);
+    RotateMotorEx(OUT_BC, MIN(MAX(20, -100), 100), (180 * TRACKWIDTH / WHEELDIAMETER), 100, true, true);
+    Wait(1);
+    ClearScreen();
+    TextOut(0, (MAXLINES - 1) * MAXLINES, "Reabastecendo...");
+    Wait(3000);
+    ___reset = true;
+}
